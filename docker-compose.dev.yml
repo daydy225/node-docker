@@ -1,0 +1,27 @@
+version: '3'
+services:
+  nginx:
+    ports:
+      - "3000:80"
+  node-app:
+    build: 
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=daydy-dev
+      - MONGO_PASSWORD=daydy-dev225
+      - SESSION_SECRET=dockersecret
+      
+    command: npm run dev
+  mongoDB: 
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=daydy-dev
+      - MONGO_INITDB_ROOT_PASSWORD=daydy-dev225
+
+    
